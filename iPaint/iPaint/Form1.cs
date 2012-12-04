@@ -13,7 +13,14 @@ namespace iPaint
     {
         public Form1()
         {
+
             InitializeComponent();
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.Text=e.X+";"+e.Y;
         }
     }
 }
+
