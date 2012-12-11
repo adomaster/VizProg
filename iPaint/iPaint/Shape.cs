@@ -31,6 +31,25 @@ namespace iPaint
         }
 
     }
+    class Line : Shape
+    {
+        private Point S, E;
+        public Line(Point _S, Point _E)
+        {
+            this.S = _S;
+            this.E = _E;
+        }
+        public Line()
+        {
+        }
+        public override void DrawWith(Graphics g, Pen p)
+        {
+
+            g.DrawLine(p, S.X, S.Y, E.X, E.Y);
+        }
+
+    }
+
 
 
 }
