@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace iPaint
@@ -66,6 +67,55 @@ namespace iPaint
         private void radioLine_CheckedChanged(object sender, EventArgs e)
         {
             flag = false;
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string inFile = "save.txt";
+            StreamWriter sw = new StreamWriter(inFile);
+            foreach (Shape p in this.shapes)
+            {
+                p.SaveTo(sw);
+            }
+            sw.Close();
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string curFile = openFileDialog1.FileName;
+                StreamReader sr = new StreamReader(curFile);
+                shapes.Clear();
+                while (!sr.EndOfStream)
+                {
+                    string tools = sr.ReadLine();
+                    switch (tools)
+                    {
+                        case "Cross":
+                            {
+                                shapes.Add(new Cross(sr));
+                                Refresh();
+                                break;
+                            }
+                        case "Line":
+                            {
+                                shapes.Add(new Line(sr));
+                                Refresh();
+                                break;
+                            }
+                    }
+                }
+                sr.Close();
+            }
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            shapes.Clear();
+            flag = true;
+            this.Refresh();
+
         }
     }
 }
