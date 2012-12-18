@@ -18,6 +18,7 @@ namespace iPaint
         Shape tempShape;
         Pen pmain = new Pen(Color.Black);
         Pen ptemp = new Pen(Color.Gray);
+        Pen pcheck = new Pen(Color.Red,2);
 
         public Form1()
         {
@@ -77,6 +78,10 @@ namespace iPaint
             if (tempShape != null)
             {
                 tempShape.DrawWith(e.Graphics, ptemp);
+            }
+            foreach (int i in ShapesList.SelectedIndices)
+            {
+                shapes[i].DrawWith(e.Graphics, pcheck);
             }
             foreach (Shape p in this.shapes)
             {
@@ -169,6 +174,12 @@ namespace iPaint
                     Refresh();
                 }
             }
+        }
+
+        private void ShapesList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flag = false;
+            Refresh();
         }
     }
 }
