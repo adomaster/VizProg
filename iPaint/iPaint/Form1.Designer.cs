@@ -66,6 +66,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.ShapesList = new System.Windows.Forms.ListBox();
             this.radioCircle = new System.Windows.Forms.RadioButton();
+            this.button_delete = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -378,11 +379,22 @@
             this.radioCircle.Text = "Circle";
             this.radioCircle.UseVisualStyleBackColor = true;
             // 
+            // button_delete
+            // 
+            this.button_delete.Location = new System.Drawing.Point(331, 412);
+            this.button_delete.Name = "button_delete";
+            this.button_delete.Size = new System.Drawing.Size(75, 23);
+            this.button_delete.TabIndex = 6;
+            this.button_delete.Text = "Delete item";
+            this.button_delete.UseVisualStyleBackColor = true;
+            this.button_delete.Click += new System.EventHandler(this.button_delete_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(825, 462);
+            this.Controls.Add(this.button_delete);
             this.Controls.Add(this.ShapesList);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.groupBox1);
@@ -441,6 +453,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ListBox ShapesList;
         private System.Windows.Forms.RadioButton radioCircle;
+        private System.Windows.Forms.Button button_delete;
     }
 }
 

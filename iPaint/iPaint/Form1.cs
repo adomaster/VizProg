@@ -181,6 +181,17 @@ namespace iPaint
             flag = false;
             Refresh();
         }
+
+        private void button_delete_Click(object sender, EventArgs e)
+        {
+            while (ShapesList.SelectedIndices.Count > 0)
+            {
+                shapes.RemoveAt(ShapesList.SelectedIndices[0]);
+                ShapesList.Items.RemoveAt(ShapesList.SelectedIndices[0]);
+            }
+            Refresh();
+
+        }
     }
 }
 
