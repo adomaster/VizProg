@@ -29,6 +29,7 @@ namespace iPaint
             if (radioCross.Checked)
             {
                 shapes.Add(new Cross(e.X, e.Y));
+                ShapesList.Items.Add("Cross" + " " + e.Location);
                 flag = false;
             }
             
@@ -43,6 +44,7 @@ namespace iPaint
                 {
 
                     shapes.Add(new Line(LS,e.Location));
+                    ShapesList.Items.Add("Line" + " " + LS + " " + e.Location);
                     flag = false;
                 }
             }
@@ -94,13 +96,13 @@ namespace iPaint
                     {
                         case "Cross":
                             {
-                                shapes.Add(new Cross(sr));
+                                shapes.Add(new Cross(sr));                                
                                 Refresh();
                                 break;
                             }
                         case "Line":
                             {
-                                shapes.Add(new Line(sr));
+                                shapes.Add(new Line(sr));                                
                                 Refresh();
                                 break;
                             }
@@ -114,6 +116,7 @@ namespace iPaint
         {
             shapes.Clear();
             flag = true;
+            ShapesList.Items.Clear();
             this.Refresh();
 
         }
