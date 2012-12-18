@@ -94,6 +94,51 @@ namespace iPaint
 
 
     }
+    class Circle : Shape
+    {
+
+        private Point S, E;
+        int rad;
+
+        public Circle(Point _S, Point _E)
+        {
+            this.S = _S;
+            this.E = _E;
+        }
+        public Circle()
+        {
+        }
+        public Circle(StreamReader sr)
+        {
+            string line1;
+            string line2;
+            line1 = sr.ReadLine();
+            line2 = sr.ReadLine();
+            string[] foo1 = line1.Split(' ');
+            string[] foo2 = line2.Split(' ');
+            S.X = Convert.ToInt32(foo1[0]);
+            E.X = Convert.ToInt32(foo2[0]);
+            S.Y = Convert.ToInt32(foo1[1]);
+            E.Y = Convert.ToInt32(foo2[1]);
+        }
+        public override void DrawWith(Graphics g, Pen p)
+        {
+            rad = Convert.ToInt32(Math.Sqrt((E.X - S.X) * (E.X - S.X) + (E.Y - S.Y) * (E.Y - S.Y)));
+            g.DrawEllipse(p, S.X - rad, S.Y - rad, rad * 2, rad * 2);
+        }
+        public override void SaveTo(StreamWriter file)
+        {
+            file.WriteLine("Circle");
+            file.WriteLine(Convert.ToString(S.X - rad) + " " + Convert.ToString(S.Y - rad));
+            file.WriteLine("Radius: " + Convert.ToString(rad));
+        }
+        public override void LoadTo(StreamReader file)
+        {
+        }
+
+
+    }
+
 
 
 

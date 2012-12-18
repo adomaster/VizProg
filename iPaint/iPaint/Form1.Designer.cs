@@ -65,6 +65,7 @@
             this.ClearButton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.ShapesList = new System.Windows.Forms.ListBox();
+            this.radioCircle = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioCircle);
             this.groupBox1.Controls.Add(this.radioCross);
             this.groupBox1.Controls.Add(this.radioLine);
             this.groupBox1.Location = new System.Drawing.Point(12, 393);
@@ -363,6 +365,17 @@
             this.ShapesList.Size = new System.Drawing.Size(216, 342);
             this.ShapesList.TabIndex = 5;
             // 
+            // radioCircle
+            // 
+            this.radioCircle.AutoSize = true;
+            this.radioCircle.Location = new System.Drawing.Point(124, 19);
+            this.radioCircle.Name = "radioCircle";
+            this.radioCircle.Size = new System.Drawing.Size(51, 17);
+            this.radioCircle.TabIndex = 2;
+            this.radioCircle.TabStop = true;
+            this.radioCircle.Text = "Circle";
+            this.radioCircle.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,6 +437,7 @@
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ListBox ShapesList;
+        private System.Windows.Forms.RadioButton radioCircle;
     }
 }
 

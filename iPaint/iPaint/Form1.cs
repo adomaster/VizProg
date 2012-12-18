@@ -48,6 +48,21 @@ namespace iPaint
                     flag = false;
                 }
             }
+            if (radioCircle.Checked)
+            {
+                if (!flag)
+                {
+                    LS = e.Location;
+                    flag = true;
+                }
+                else
+                {
+
+                    shapes.Add(new Circle(LS, e.Location));
+                    ShapesList.Items.Add("Circle" + " " + LS + " " + e.Location);
+                    flag = false;
+                }
+            }
             Refresh();
         }
 
