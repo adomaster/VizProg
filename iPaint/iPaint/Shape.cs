@@ -14,15 +14,23 @@ namespace iPaint
         public abstract void DrawWith(Graphics g, Pen p);
         public abstract void SaveTo(StreamWriter file);
         public abstract void LoadTo(StreamReader file);
+        public abstract bool Near(Point A);
+        public float Dist(Point A, Point B)
+        {
+            return ((float)Math.Sqrt(Math.Pow((B.X - A.X), 2) + Math.Pow((B.Y - A.Y), 2)));
+        }
     }
     class Cross : Shape
     {
         private int X, Y;
+        private Point P;
 
 
         public Cross(int _X, int _Y)
         {
             this.X = _X; this.Y = _Y;
+            P.X = X;
+            P.Y = Y;
         }
         public Cross()
         {
@@ -49,6 +57,10 @@ namespace iPaint
         public override void LoadTo(StreamReader file)
         {
 
+        }
+        public override bool Near(Point A)
+        {
+            return (Dist(A,P) <= 3);
         }
 
 
@@ -90,6 +102,10 @@ namespace iPaint
         }
         public override void LoadTo(StreamReader file)
         {
+        }
+        public override bool Near(Point A)
+        {
+            return (((Dist(S, A) + Dist(E, A)) - Dist(S, E)) <= 1);
         }
 
 
@@ -134,6 +150,10 @@ namespace iPaint
         }
         public override void LoadTo(StreamReader file)
         {
+        }
+        public override bool Near(Point A)
+        {
+            return (((Dist(S, A) - Dist(S, E)) <= 3)&&((Dist(S,A)>=((Dist(S,E)/100)*90))));
         }
 
 
