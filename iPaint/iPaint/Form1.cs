@@ -15,24 +15,28 @@ namespace iPaint
         List<Shape> shapes = new List<Shape>();
         Boolean flag = false;
         Point LS;
+        Shape tempShape;
         Pen pmain = new Pen(Color.Black);
+        Pen ptemp = new Pen(Color.Gray);
 
         public Form1()
         {
-
             InitializeComponent();
         }
-
+        private void addShape(Shape item)
+        {
+            shapes.Add(item);
+        }
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            this.Text=e.X+";"+e.Y;
             if (radioCross.Checked)
             {
-                shapes.Add(new Cross(e.X, e.Y));
-                ShapesList.Items.Add("Cross" + " " + e.Location);
                 flag = false;
+                this.Text = Convert.ToString(e.Location);
+                addShape(tempShape);
+                ShapesList.Items.Add("Cross" + " " + e.Location);
+
             }
-            
             if (radioLine.Checked)
             {
                 if (!flag)
@@ -43,7 +47,8 @@ namespace iPaint
                 else
                 {
 
-                    shapes.Add(new Line(LS,e.Location));
+                    this.Text = Convert.ToString(e.Location) + " " + Convert.ToString(LS);
+                    addShape(tempShape);
                     ShapesList.Items.Add("Line" + " " + LS + " " + e.Location);
                     flag = false;
                 }
@@ -57,22 +62,28 @@ namespace iPaint
                 }
                 else
                 {
-
-                    shapes.Add(new Circle(LS, e.Location));
+                    this.Text = Convert.ToString(e.Location) + " " + Convert.ToString(LS);
+                    addShape(tempShape);
                     ShapesList.Items.Add("Circle" + " " + LS + " " + e.Location);
                     flag = false;
                 }
             }
             Refresh();
+
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            if (tempShape != null)
+            {
+                tempShape.DrawWith(e.Graphics, ptemp);
+            }
             foreach (Shape p in this.shapes)
             {
                 p.DrawWith(e.Graphics, pmain);
 
             }
+
 
         }
 
@@ -134,6 +145,30 @@ namespace iPaint
             ShapesList.Items.Clear();
             this.Refresh();
 
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (radioCross.Checked)
+            {
+                tempShape = new Cross(e.X, e.Y);
+                Refresh();
+            }
+            else
+            {
+                if (flag)
+                {
+                    if (radioLine.Checked)
+                    {
+                        tempShape = new Line(LS, e.Location);
+                    }
+                    if (radioCircle.Checked)
+                    {
+                        tempShape = new Circle(LS, e.Location);
+                    }
+                    Refresh();
+                }
+            }
         }
     }
 }
