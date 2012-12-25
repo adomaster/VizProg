@@ -13,8 +13,8 @@ namespace iPaint
     {
         public abstract void DrawWith(Graphics g, Pen p);
         public abstract void SaveTo(StreamWriter file);
-        public abstract void LoadTo(StreamReader file);
         public abstract bool Near(Point A);
+        public abstract string Info();
         public float Dist(Point A, Point B)
         {
             return ((float)Math.Sqrt(Math.Pow((B.X - A.X), 2) + Math.Pow((B.Y - A.Y), 2)));
@@ -25,15 +25,11 @@ namespace iPaint
         private int X, Y;
         private Point P;
 
-
         public Cross(int _X, int _Y)
         {
             this.X = _X; this.Y = _Y;
             P.X = X;
             P.Y = Y;
-        }
-        public Cross()
-        {
         }
         public Cross(StreamReader sr)
         {
@@ -41,9 +37,7 @@ namespace iPaint
             string[] foo = line.Split(' ');
             X = Convert.ToInt32(foo[0]);
             Y = Convert.ToInt32(foo[1]);
-
         }
-
         public override void DrawWith(Graphics g, Pen p)
         {
             g.DrawLine(p, X - 5, Y - 5, X + 5, Y + 5);
@@ -54,16 +48,14 @@ namespace iPaint
             file.WriteLine("Cross");
             file.WriteLine(Convert.ToString(X) + " " + Convert.ToString(Y));
         }
-        public override void LoadTo(StreamReader file)
-        {
-
-        }
         public override bool Near(Point A)
         {
             return (Dist(A,P) <= 3);
         }
-
-
+        public override string Info()
+        {
+            return "Cross" + " " + P;
+        }
     }
     class Line : Shape
     {
@@ -72,9 +64,6 @@ namespace iPaint
         {
             this.S = _S;
             this.E = _E;
-        }
-        public Line()
-        {
         }
         public Line(StreamReader sr)
         {
@@ -91,7 +80,6 @@ namespace iPaint
         }
         public override void DrawWith(Graphics g, Pen p)
         {
-
             g.DrawLine(p, S.X, S.Y, E.X, E.Y);
         }
         public override void SaveTo(StreamWriter file)
@@ -100,29 +88,30 @@ namespace iPaint
             file.WriteLine(Convert.ToString(S.X) + " " + Convert.ToString(S.Y));
             file.WriteLine(Convert.ToString(E.X) + " " + Convert.ToString(E.Y));
         }
-        public override void LoadTo(StreamReader file)
-        {
-        }
         public override bool Near(Point A)
         {
             return (((Dist(S, A) + Dist(E, A)) - Dist(S, E)) <= 1);
         }
-
-
+        public override string Info()
+        {
+            return "Line" + " " + S + " " + E;
+        }
     }
     class Circle : Shape
     {
-
-        private Point S, E;
-        int rad;
+        private Point S, E;        
 
         public Circle(Point _S, Point _E)
         {
             this.S = _S;
             this.E = _E;
         }
-        public Circle()
+        private int rad
         {
+            get
+            {
+                return Convert.ToInt32(Math.Sqrt((E.X - S.X) * (E.X - S.X) + (E.Y - S.Y) * (E.Y - S.Y)));
+            }
         }
         public Circle(StreamReader sr)
         {
@@ -138,28 +127,22 @@ namespace iPaint
             E.Y = Convert.ToInt32(foo2[1]);
         }
         public override void DrawWith(Graphics g, Pen p)
-        {
-            rad = Convert.ToInt32(Math.Sqrt((E.X - S.X) * (E.X - S.X) + (E.Y - S.Y) * (E.Y - S.Y)));
+        { 
             g.DrawEllipse(p, S.X - rad, S.Y - rad, rad * 2, rad * 2);
         }
         public override void SaveTo(StreamWriter file)
         {
             file.WriteLine("Circle");
-            file.WriteLine(Convert.ToString(S.X - rad) + " " + Convert.ToString(S.Y - rad));
-            file.WriteLine("Radius: " + Convert.ToString(rad));
-        }
-        public override void LoadTo(StreamReader file)
-        {
+            file.WriteLine(Convert.ToString(S.X) + " " + Convert.ToString(S.Y));
+            file.WriteLine(Convert.ToString(E.X) + " " + Convert.ToString(E.Y));
         }
         public override bool Near(Point A)
         {
-            return (((Dist(S, A) - Dist(S, E)) <= 3)&&((Dist(S,A)>=((Dist(S,E)/100)*90))));
+            return ((Math.Abs(Dist(S, A) - Dist(S, E)) <= 3));
         }
-
-
+        public override string Info()
+        {
+            return "Circle " + "center: " + S + " radius: " + rad;
+        }
     }
-
-
-
-
 }

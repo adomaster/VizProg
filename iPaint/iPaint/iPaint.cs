@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace iPaint
 {
-    public partial class Form1 : Form
+    public partial class iPaint : Form
     {
         List<Shape> shapes = new List<Shape>();
         Boolean flag = false;
@@ -20,22 +20,23 @@ namespace iPaint
         Pen ptemp = new Pen(Color.Gray);
         Pen pcheck = new Pen(Color.Red,2);
 
-        public Form1()
+        public iPaint()
         {
             InitializeComponent();
         }
         private void addShape(Shape item)
         {
             shapes.Add(item);
+            ShapesList.Items.Add(tempShape.Info());
         }
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        private void iPaint_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
                 int q = 0;
-                foreach (Shape i in shapes)
+                foreach (Shape obj in shapes)
                 {
-                    if (i.Near(e.Location))
+                    if (obj.Near(e.Location))
                     {
                         ShapesList.SetSelected(q, true);
                     }
@@ -48,9 +49,7 @@ namespace iPaint
                 {
                     flag = false;
                     this.Text = Convert.ToString(e.Location);
-                    addShape(tempShape);
-                    ShapesList.Items.Add("Cross" + " " + e.Location);
-
+                    addShape(tempShape); 
                 }
                 if (radioLine.Checked)
                 {
@@ -63,7 +62,6 @@ namespace iPaint
                     {
                         this.Text = Convert.ToString(e.Location) + " " + Convert.ToString(LS);
                         addShape(tempShape);
-                        ShapesList.Items.Add("Line" + " " + LS + " " + e.Location);
                         flag = false;
                     }
                 }
@@ -78,7 +76,6 @@ namespace iPaint
                     {
                         this.Text = Convert.ToString(e.Location) + " " + Convert.ToString(LS);
                         addShape(tempShape);
-                        ShapesList.Items.Add("Circle" + " " + LS + " " + e.Location);
                         flag = false;
                     }
                 }
@@ -86,35 +83,21 @@ namespace iPaint
             }
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void iPaint_Paint(object sender, PaintEventArgs e)
         {
             if (tempShape != null)
             {
                 tempShape.DrawWith(e.Graphics, ptemp);
             }
-            foreach (int i in ShapesList.SelectedIndices)
-            {
-                shapes[i].DrawWith(e.Graphics, pcheck);
-            }
             foreach (Shape p in this.shapes)
             {
                 p.DrawWith(e.Graphics, pmain);
-
             }
-
-
+            foreach (int i in ShapesList.SelectedIndices)
+            {
+                shapes[i].DrawWith(e.Graphics, pcheck);
+            }            
         }
-
-        private void radioCross_CheckedChanged(object sender, EventArgs e)
-        {
-            flag = false;
-        }
-
-        private void radioLine_CheckedChanged(object sender, EventArgs e)
-        {
-            flag = false;
-        }
-
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string inFile = "save.txt";
@@ -150,6 +133,12 @@ namespace iPaint
                                 Refresh();
                                 break;
                             }
+                        case "Circle":
+                            {
+                                shapes.Add(new Circle(sr));
+                                Refresh();
+                                break;
+                            }
                     }
                 }
                 sr.Close();
@@ -165,7 +154,7 @@ namespace iPaint
 
         }
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        private void iPaint_MouseMove(object sender, MouseEventArgs e)
         {
             if (radioCross.Checked)
             {
@@ -204,6 +193,21 @@ namespace iPaint
             }
             Refresh();
 
+        }
+
+        private void radioCross_CheckedChanged(object sender, EventArgs e)
+        {
+            flag = false;
+        }
+
+        private void radioLine_CheckedChanged(object sender, EventArgs e)
+        {
+            flag = false;
+        }
+
+        private void radioCircle_CheckedChanged(object sender, EventArgs e)
+        {
+            flag = false;
         }
     }
 }
