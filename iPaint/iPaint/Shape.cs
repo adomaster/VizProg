@@ -22,31 +22,29 @@ namespace iPaint
     }
     class Cross : Shape
     {
-        private int X, Y;
         private Point P;
 
         public Cross(int _X, int _Y)
         {
-            this.X = _X; this.Y = _Y;
-            P.X = X;
-            P.Y = Y;
+            P.X = _X;
+            P.Y = _Y;
         }
         public Cross(StreamReader sr)
         {
             string line = sr.ReadLine();
             string[] foo = line.Split(' ');
-            X = Convert.ToInt32(foo[0]);
-            Y = Convert.ToInt32(foo[1]);
+            P.X = Convert.ToInt32(foo[0]);
+            P.Y = Convert.ToInt32(foo[1]);
         }
         public override void DrawWith(Graphics g, Pen p)
         {
-            g.DrawLine(p, X - 5, Y - 5, X + 5, Y + 5);
-            g.DrawLine(p, X + 5, Y - 5, X - 5, Y + 5);
+            g.DrawLine(p, P.X - 5, P.Y - 5, P.X + 5, P.Y + 5);
+            g.DrawLine(p, P.X + 5, P.Y - 5, P.X - 5, P.Y + 5);
         }
         public override void SaveTo(StreamWriter file)
         {
             file.WriteLine("Cross");
-            file.WriteLine(Convert.ToString(X) + " " + Convert.ToString(Y));
+            file.WriteLine(Convert.ToString(P.X) + " " + Convert.ToString(P.Y));
         }
         public override bool Near(Point A)
         {

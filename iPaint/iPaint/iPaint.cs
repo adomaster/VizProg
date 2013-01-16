@@ -123,19 +123,22 @@ namespace iPaint
                     {
                         case "Cross":
                             {
-                                shapes.Add(new Cross(sr));                                
+                                tempShape = new Cross(sr);
+                                addShape(tempShape);
                                 Refresh();
                                 break;
                             }
                         case "Line":
                             {
-                                shapes.Add(new Line(sr));                                
+                                tempShape = new Line(sr);
+                                addShape(tempShape);
                                 Refresh();
                                 break;
                             }
                         case "Circle":
                             {
-                                shapes.Add(new Circle(sr));
+                                tempShape = new Circle(sr);
+                                addShape(tempShape);                              
                                 Refresh();
                                 break;
                             }
@@ -192,7 +195,6 @@ namespace iPaint
                 ShapesList.Items.RemoveAt(ShapesList.SelectedIndices[0]);
             }
             Refresh();
-
         }
 
         private void radioCross_CheckedChanged(object sender, EventArgs e)
