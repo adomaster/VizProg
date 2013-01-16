@@ -27,7 +27,7 @@ namespace iPaint
         private void addShape(Shape item)
         {
             shapes.Add(item);
-            ShapesList.Items.Add(tempShape.Info());
+            ShapesList.Items.Add(item.Info());
         }
         private void iPaint_MouseClick(object sender, MouseEventArgs e)
         {
@@ -109,26 +109,21 @@ namespace iPaint
                     {
                         case "Cross":
                             {
-                                tempShape = new Cross(sr);
-                                addShape(tempShape);
-                                Refresh();
+                                addShape(new Cross(sr));                                
                                 break;
                             }
                         case "Line":
                             {
-                                tempShape = new Line(sr);
-                                addShape(tempShape);
-                                Refresh();
+                                addShape(new Line(sr));
                                 break;
                             }
                         case "Circle":
                             {
-                                tempShape = new Circle(sr);
-                                addShape(tempShape);                              
-                                Refresh();
+                                addShape(new Circle(sr));
                                 break;
                             }
                     }
+                    Refresh();
                 }
                 sr.Close();
             }
@@ -160,7 +155,7 @@ namespace iPaint
                     if (radioCircle.Checked)
                     {
                         tempShape = new Circle(LS, e.Location);
-                    }
+                    }                    
                     Refresh();
                 }
             }
@@ -182,17 +177,7 @@ namespace iPaint
             Refresh();
         }
 
-        private void radioCross_CheckedChanged(object sender, EventArgs e)
-        {
-            flag = false;
-        }
-
-        private void radioLine_CheckedChanged(object sender, EventArgs e)
-        {
-            flag = false;
-        }
-
-        private void radioCircle_CheckedChanged(object sender, EventArgs e)
+        private void radio_CheckedChanged(object sender, EventArgs e)
         {
             flag = false;
         }

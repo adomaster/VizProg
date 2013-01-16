@@ -81,7 +81,6 @@
             this.radioCross.TabStop = true;
             this.radioCross.Text = "Cross";
             this.radioCross.UseVisualStyleBackColor = true;
-            this.radioCross.CheckedChanged += new System.EventHandler(this.radioCross_CheckedChanged);
             // 
             // radioLine
             // 
@@ -93,7 +92,7 @@
             this.radioLine.TabStop = true;
             this.radioLine.Text = "Line";
             this.radioLine.UseVisualStyleBackColor = true;
-            this.radioLine.CheckedChanged += new System.EventHandler(this.radioLine_CheckedChanged);
+            this.radioLine.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
             // 
             // groupBox1
             // 
@@ -117,7 +116,7 @@
             this.radioCircle.TabStop = true;
             this.radioCircle.Text = "Circle";
             this.radioCircle.UseVisualStyleBackColor = true;
-            this.radioCircle.CheckedChanged += new System.EventHandler(this.radioCircle_CheckedChanged);
+            this.radioCircle.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
             // 
             // menuStrip1
             // 
@@ -400,9 +399,11 @@
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "iPaint";
             this.Text = "iPaint";
+            this.Load += new System.EventHandler(this.radio_CheckedChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.iPaint_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.iPaint_MouseClick);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.iPaint_MouseMove);
