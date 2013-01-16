@@ -49,23 +49,9 @@ namespace iPaint
                 {
                     flag = false;
                     this.Text = Convert.ToString(e.Location);
-                    addShape(tempShape); 
+                    addShape(tempShape);
                 }
-                if (radioLine.Checked)
-                {
-                    if (!flag)
-                    {
-                        LS = e.Location;
-                        flag = true;
-                    }
-                    else
-                    {
-                        this.Text = Convert.ToString(e.Location) + " " + Convert.ToString(LS);
-                        addShape(tempShape);
-                        flag = false;
-                    }
-                }
-                if (radioCircle.Checked)
+                else
                 {
                     if (!flag)
                     {
@@ -154,7 +140,6 @@ namespace iPaint
             flag = true;
             ShapesList.Items.Clear();
             this.Refresh();
-
         }
 
         private void iPaint_MouseMove(object sender, MouseEventArgs e)

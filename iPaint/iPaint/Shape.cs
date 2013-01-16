@@ -23,7 +23,6 @@ namespace iPaint
     class Cross : Shape
     {
         private Point P;
-
         public Cross(int _X, int _Y)
         {
             P.X = _X;
@@ -98,7 +97,6 @@ namespace iPaint
     class Circle : Shape
     {
         private Point S, E;        
-
         public Circle(Point _S, Point _E)
         {
             this.S = _S;
